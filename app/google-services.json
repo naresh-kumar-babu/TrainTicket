@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "651113612987",
+    "firebase_url": "https://trainticket-5794a-default-rtdb.firebaseio.com",
+    "project_id": "trainticket-5794a",
+    "storage_bucket": "trainticket-5794a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651113612987:android:62547c376fb9ded0a9cb9e",
+        "android_client_info": {
+          "package_name": "com.example.trainticket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "651113612987-mjb4b1vu9esjvoaipmtgbaike429s6i1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI7X9G9WG10scZU4lTTq719-8TSl0i0sQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "651113612987-mjb4b1vu9esjvoaipmtgbaike429s6i1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".prevJourneyActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/maintoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:background="@color/colorPrimary"
+        app:navigationIconTint="@color/black"
+        android:theme="@style/toolbar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="150sp"
+        android:layout_marginTop="150sp"
+        android:text="Previous Journey"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_dash"
+        android:layout_width="match_parent"
+        android:layout_height="45sp"
+        android:paddingTop="6sp"
+        app:itemIconSize="26sp"
+        android:paddingBottom="4sp"
+        app:itemIconTint="@drawable/navigation_view_colored"
+        app:itemTextColor="@drawable/navigation_view_colored"
+        app:labelVisibilityMode="labeled"
+        android:background="@color/colorPrimary"
+        app:menu="@menu/bottom_nav_menu"
+        android:layout_alignParentBottom="true"
+        >
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</RelativeLayout>
