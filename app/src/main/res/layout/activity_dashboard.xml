@@ -15,12 +15,125 @@
         android:theme="@style/toolbar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+    <LinearLayout
+        android:id="@+id/dashboard_place"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/maintoolbar"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginTop="10sp"
+        android:padding="10sp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/outer_border_lt">
+        <Spinner
+            android:id="@+id/spinner_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5sp"
+            android:textSize="18sp"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/black"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/outer_border_lt"
+            android:layout_marginLeft="30sp">
+        <Spinner
+            android:id="@+id/spinner_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5sp"
+            android:textSize="18sp"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/black"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dashboard_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dashboard_place"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10sp"
+            android:padding="10sp"
+            android:text="Journery Date"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/dash_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashboard_place"
+            android:layout_centerHorizontal="true"
+            android:height="45sp"
+            android:background="@drawable/outer_border_lt"
+            android:gravity="center_vertical"
+            android:padding="10sp"
+            android:text="DD/MM/YYYY"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/dashboard_searchbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dashboard_date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginRight="30sp"
+        android:background="@drawable/bg_ui"
+        android:padding="15sp"
+        android:text="Search trains"
+        android:textColor="@color/colorWhite" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="150sp"
-        android:layout_marginTop="150sp"
-        android:text="Dashboard"/>
+        android:textAlignment="center"
+        android:layout_below="@id/dashboard_searchbtn"
+        android:visibility="gone"
+        android:layout_marginTop="100sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="No available trains"
+        android:id="@+id/no_trains_found"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_nav_dash"
+        android:layout_below="@+id/dashboard_searchbtn"
+        android:id="@+id/display_trains"
+        android:visibility="gone"
+        android:layout_marginTop="20sp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trains_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_dash"

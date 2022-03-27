@@ -15,6 +15,7 @@
     <color name="colorBlue">#2FB4FF</color>
     <color name="colorBlueT">#642fb4ff</color>
     <color name="darkgreen">#029C23</color>
+    <color name="mildblue">#d4ebf2</color>
     <color name="green">@android:color/holo_green_dark</color>
     <color name="grey">@android:color/darker_gray</color>
 </resources>

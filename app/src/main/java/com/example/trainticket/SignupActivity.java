@@ -95,7 +95,7 @@ public class SignupActivity extends AppCompatActivity {
                     SignupActivity.this,
                     android.R.style.Theme_Material_Light_Dialog,
                     mDateSetListener,
-                    day,month,year
+                    year,month,day
             );
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
             dialog.show();
