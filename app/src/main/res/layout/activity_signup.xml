@@ -27,7 +27,7 @@
             android:layout_marginTop="30sp"
             android:layout_centerHorizontal="true"
             android:elevation="10sp"
-            android:text="SIGNUP"
+            android:text="@string/signup"
             android:textColor="@color/colorWhite"
 
             android:textSize="25sp"
@@ -39,7 +39,7 @@
             android:layout_width="150sp"
             android:layout_height="150sp"
             android:layout_alignParentEnd="true"
-            android:layout_marginLeft="-25sp"
+            android:layout_marginStart="-25sp"
             android:layout_marginTop="3sp"
             android:src="@drawable/circletransparant" />
 
@@ -48,7 +48,7 @@
             android:layout_width="182sp"
             android:layout_height="182sp"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="-80sp"
+            android:layout_marginStart="-80sp"
             android:layout_marginBottom="-30sp"
             android:src="@drawable/circle" />
 
@@ -64,7 +64,7 @@
             <RelativeLayout
                 android:id="@+id/rlayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv"
@@ -85,7 +85,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10sp"
-                            android:text="Name"
+                            android:text="@string/name"
                             android:textColor="@color/colorPurple"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -97,13 +97,14 @@
                             android:layout_marginLeft="10sp"
                             android:layout_marginRight="10sp"
                             android:layout_marginTop="-15sp"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:autofillHints="" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10sp"
-                            android:text="Date of Birth"
+                            android:text="@string/date_of_birth"
                             android:textColor="@color/colorPurple"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -117,19 +118,19 @@
                             android:height="45sp"
                             android:gravity="center_vertical"
                             android:padding="10sp"
-                            android:text="DD/MM/YYYY"
+                            android:text="@string/dd_mm_yyyy"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
-                            android:text="Gender"
+                            android:text="@string/gender"
                             android:textColor="@color/colorPurple"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                         <LinearLayout
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginStart="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <RelativeLayout
@@ -144,27 +145,27 @@
                                     android:padding="5dp"
                                     android:textStyle="bold"
                                     android:gravity="center"
-                                    android:text="Male"/>
+                                    android:text="@string/male"/>
                                 <TextView
                                     android:id="@+id/female_select"
                                     android:layout_width="70dp"
                                     android:layout_height="45dp"
                                     android:padding="5dp"
                                     android:textStyle="bold"
-                                    android:layout_toRightOf="@id/male_select"
+                                    android:layout_toEndOf="@id/male_select"
                                     android:gravity="center"
                                     android:background="@android:color/white"
-                                    android:text="Female"/>
+                                    android:text="@string/female"/>
                                 <TextView
                                     android:id="@+id/other_select"
                                     android:layout_width="70dp"
                                     android:layout_height="45dp"
-                                    android:layout_toRightOf="@id/female_select"
+                                    android:layout_toEndOf="@id/female_select"
                                     android:padding="5dp"
                                     android:textStyle="bold"
                                     android:gravity="center"
                                     android:background="@color/colorWhite"
-                                    android:text="Other"/>
+                                    android:text="@string/other"/>
                             </RelativeLayout>
                         </LinearLayout>
 
@@ -172,7 +173,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10sp"
-                            android:text="Phone Number"
+                            android:text="@string/phone_number"
                             android:textColor="@color/colorPurple"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -185,13 +186,14 @@
                             android:layout_marginRight="10sp"
                             android:layout_marginTop="-15sp"
                             android:inputType="phone"
-                            android:maxLength="10" />
+                            android:maxLength="10"
+                            android:autofillHints="" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10sp"
-                            android:text="Email"
+                            android:text="@string/email"
                             android:textColor="@color/colorPurple"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -203,7 +205,8 @@
                             android:layout_marginLeft="10sp"
                             android:layout_marginRight="10sp"
                             android:layout_marginTop="-15sp"
-                            android:inputType="textEmailAddress" />
+                            android:inputType="textEmailAddress"
+                            android:autofillHints="" />
 
 
                         <TextView
@@ -211,7 +214,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10sp"
-                            android:text="Password"
+                            android:text="@string/password"
                             android:textColor="@color/colorPurple"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -223,13 +226,14 @@
                             android:layout_marginLeft="10sp"
                             android:layout_marginRight="10sp"
                             android:layout_marginTop="-15sp"
-                            android:inputType="textPassword" />
+                            android:inputType="textPassword"
+                            android:autofillHints="" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10sp"
-                            android:text="Retype Password"
+                            android:text="@string/retype_password"
                             android:textColor="@color/colorPurple"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -241,7 +245,8 @@
                             android:layout_marginLeft="10sp"
                             android:layout_marginRight="10sp"
                             android:layout_marginTop="-15sp"
-                            android:inputType="textPassword" />
+                            android:inputType="textPassword"
+                            android:autofillHints="" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -255,13 +260,13 @@
                     android:layout_marginRight="35sp"
                     android:elevation="10dp">
 
-                    <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    <com.github.ybq.android.spinkit.SpinKitView
                         android:id="@+id/spin_kit_reg"
                         style="@style/SpinKitView.Large.Wave"
                         android:layout_width="45sp"
                         android:layout_height="45sp"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="10sp"
+                        android:layout_marginStart="10sp"
                         android:elevation="10sp"
                         android:padding="5sp"
                         android:visibility="gone"
@@ -272,7 +277,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_ui"
-                        android:text="Sign Up"
+                        android:text="@string/sign_up"
                         android:textAllCaps="true"
                         android:textColor="@color/colorWhite"
                         android:textSize="18sp" />

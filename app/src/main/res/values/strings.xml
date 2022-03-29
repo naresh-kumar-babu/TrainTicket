@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">TrainTicket</string>
+    <string name="journey_date">Journey Date</string>
+    <string name="search_trains">Search trains</string>
+    <string name="no_available_trains">No available trains</string>
+    <string name="welcome_to_ttr">Welcome to TTR</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="new_user_sign_up">New User? Sign Up</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="passenger_details">Passenger Details</string>
+    <string name="passenger_name">Passenger Name</string>
+    <string name="age">Age</string>
+    <string name="proceed_to_payment">Proceed to Payment</string>
+    <string name="delete_passenger">- Delete Passenger</string>
+    <string name="add_passenger">+ Add Passenger</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>>
+    <string name="password">Password</string>
+    <string name="booking_history">Booking History</string>
+    <string name="name">Name</string>
+    <string name="dob">DOB</string>
+    <string name="gender">Gender</string>
+    <string name="phone">Phone</string>
+    <string name="signup">SIGNUP</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="dd_mm_yyyy">DD/MM/YYYY</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="retype_password">Retype Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="wallet">Wallet</string>
+    <string name="departure">Departure</string>
+    <string name="arrival">Arrival</string>
 </resources>

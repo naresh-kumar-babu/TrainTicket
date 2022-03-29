@@ -1,42 +1,27 @@
 package com.example.trainticket;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.widget.DatePicker;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.FoldingCube;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -44,8 +29,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import android.os.Bundle;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -108,50 +91,41 @@ public class SignupActivity extends AppCompatActivity {
             DateT.setText(date);
         };
 
-        MaleT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MaleT.setBackgroundColor(getResources().getColor(R.color.colorPurple));
-                MaleT.setTextColor(getResources().getColor(R.color.colorWhite));
-                OtherT.setTextColor(getResources().getColor(R.color.grey));
-                FemaleT.setTextColor(getResources().getColor(R.color.grey));
-                FemaleT.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        MaleT.setOnClickListener(view -> {
+            MaleT.setBackgroundColor(getResources().getColor(R.color.colorPurple));
+            MaleT.setTextColor(getResources().getColor(R.color.colorWhite));
+            OtherT.setTextColor(getResources().getColor(R.color.grey));
+            FemaleT.setTextColor(getResources().getColor(R.color.grey));
+            FemaleT.setBackgroundColor(getResources().getColor(R.color.colorWhite));
 
-                OtherT.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-                maleb = true;
-                femaleb = false;
-                otherb = false;
-            }
+            OtherT.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+            maleb = true;
+            femaleb = false;
+            otherb = false;
         });
-        FemaleT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MaleT.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-                FemaleT.setBackgroundColor(getResources().getColor(R.color.colorPurple));
-                FemaleT.setTextColor(getResources().getColor(R.color.colorWhite));
-                MaleT.setTextColor(getResources().getColor(R.color.grey));
-                OtherT.setTextColor(getResources().getColor(R.color.grey));
-                OtherT.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-                maleb = false;
-                femaleb = true;
-                otherb = false;
+        FemaleT.setOnClickListener(view -> {
+            MaleT.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+            FemaleT.setBackgroundColor(getResources().getColor(R.color.colorPurple));
+            FemaleT.setTextColor(getResources().getColor(R.color.colorWhite));
+            MaleT.setTextColor(getResources().getColor(R.color.grey));
+            OtherT.setTextColor(getResources().getColor(R.color.grey));
+            OtherT.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+            maleb = false;
+            femaleb = true;
+            otherb = false;
 
-            }
         });
-        OtherT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MaleT.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-                FemaleT.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-                OtherT.setTextColor(getResources().getColor(R.color.colorWhite));
-                MaleT.setTextColor(getResources().getColor(R.color.grey));
-                FemaleT.setTextColor(getResources().getColor(R.color.grey));
-                OtherT.setBackgroundColor(getResources().getColor(R.color.colorPurple));
-                maleb = false;
-                femaleb = false;
-                otherb = true;
+        OtherT.setOnClickListener(view -> {
+            MaleT.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+            FemaleT.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+            OtherT.setTextColor(getResources().getColor(R.color.colorWhite));
+            MaleT.setTextColor(getResources().getColor(R.color.grey));
+            FemaleT.setTextColor(getResources().getColor(R.color.grey));
+            OtherT.setBackgroundColor(getResources().getColor(R.color.colorPurple));
+            maleb = false;
+            femaleb = false;
+            otherb = true;
 
-            }
         });
 
         SignupButton.setOnClickListener(view -> {
@@ -211,7 +185,6 @@ public class SignupActivity extends AppCompatActivity {
                                             } else {
                                                 String message = task1.getException().getMessage();
                                                 Toast.makeText(SignupActivity.this, "Error occurred. " + message, Toast.LENGTH_SHORT).show();
-                                                return;
                                             }
                                         });
 
@@ -230,12 +203,6 @@ public class SignupActivity extends AppCompatActivity {
                                             }
                                         });*/
 
-                                        /*Toast.makeText(SignupActivity.this, "Great! You're one among us now", Toast.LENGTH_SHORT).show();
-                                        Intent mainIntent = new Intent(SignupActivity.this, Verifyemail.class);
-                                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(mainIntent);
-
-                                         */
                                     } else {
                                         String message = task.getException().getMessage();
                                         Toast.makeText(SignupActivity.this, "Error occurred. " + message, Toast.LENGTH_SHORT).show();

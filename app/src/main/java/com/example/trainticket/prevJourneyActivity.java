@@ -29,29 +29,25 @@ public class prevJourneyActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.showOverflowMenu();
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId())
-                {
-                    case R.id.menu_dashboard:
-                        Intent dIntent = new Intent(prevJourneyActivity.this, DashboardActivity.class);
-                        startActivity(dIntent);
-                        return true;
-                    case R.id.menu_transactions:
-                        return true;
-                    case R.id.menu_wallet:
-                        Intent wIntent = new Intent(prevJourneyActivity.this, WalletActivity.class);
-                        startActivity(wIntent);
-                        return true;
-                    case R.id.menu_profile:
-                        Intent pIntent = new Intent(prevJourneyActivity.this, ProfileActivity.class);
-                        startActivity(pIntent);
-                        return true;
-                }
-                return false;
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId())
+            {
+                case R.id.menu_dashboard:
+                    Intent dIntent = new Intent(prevJourneyActivity.this, DashboardActivity.class);
+                    startActivity(dIntent);
+                    return true;
+                case R.id.menu_transactions:
+                    return true;
+                case R.id.menu_wallet:
+                    Intent wIntent = new Intent(prevJourneyActivity.this, WalletActivity.class);
+                    startActivity(wIntent);
+                    return true;
+                case R.id.menu_profile:
+                    Intent pIntent = new Intent(prevJourneyActivity.this, ProfileActivity.class);
+                    startActivity(pIntent);
+                    return true;
             }
+            return false;
         });
     }
     @Override

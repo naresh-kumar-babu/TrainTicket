@@ -18,9 +18,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="150sp"
+        android:layout_marginStart="150sp"
         android:layout_marginTop="150sp"
-        android:text="Wallet" />
+        android:text="@string/wallet" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_dash"

@@ -1,11 +1,5 @@
 package com.example.trainticket;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -26,10 +20,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,6 +53,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Button searchBtn;
     private ScrollView display_trains;
     int year,month,day;
+    String train_name, train_no, train_departure, train_arrival, train_2s, train_sl, train_3a, train_2a, train_1a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,20 +74,22 @@ public class DashboardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.showOverflowMenu();
 
-        String[] items_from = new String[]{"From","Erode","Tiruppur","Chennai"};
-        String[] items_to = new String[]{"To","Erode","Tiruppur","Chennai"};
+        String[] items_from = new String[]{"From","Tambaram","Karur","Tuticorin","Tiruvallur","Mayiladuturai","Erode","Tiruppur","Chennai"};
+        String[] items_to = new String[]{"To","Tambaram","Karur","Tuticorin","Tiruvallur","Mayiladuturai","Erode","Tiruppur","Chennai"};
         ArrayAdapter<String> adapter_from = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_from);
         spinner_from.setAdapter(adapter_from);
         ArrayAdapter<String> adapter_to = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_to);
         spinner_to.setAdapter(adapter_to);
 
-        journey_date.setOnClickListener(view -> {
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DATE,1);
-            year = cal.get(Calendar.YEAR);
-            month = cal.get(Calendar.MONTH);
-            day = cal.get(Calendar.DAY_OF_MONTH);
+        Calendar cal = Calendar.getInstance();
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH)+1;
+        cal.add(Calendar.DATE,1);
+        day = cal.get(Calendar.DAY_OF_MONTH);
+        date = day + "/" + month + "/" + year;
+        journey_date.setText(date);
 
+        journey_date.setOnClickListener(view -> {
             DatePickerDialog dialog = new DatePickerDialog(
                     DashboardActivity.this,
                     android.R.style.Theme_Material_Light_Dialog,
@@ -108,125 +110,189 @@ public class DashboardActivity extends AppCompatActivity {
             journey_date.setText(date);
         };
 
-        searchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String from_place = spinner_from.getSelectedItem().toString();
-                String to_place = spinner_to.getSelectedItem().toString();
-                String path = from_place+"_"+to_place;
-                if(TextUtils.isEmpty(from_place) || TextUtils.isEmpty(to_place) || TextUtils.isEmpty(date)){
-                    Toast.makeText(DashboardActivity.this,"All the fields are mandatory",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(from_place.equals("From")){
-                    Toast.makeText(DashboardActivity.this,"Choose boarding point",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(to_place.equals("To")){
-                    Toast.makeText(DashboardActivity.this,"Choose destination point",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(from_place.equals(to_place)){
-                    Toast.makeText(DashboardActivity.this,"Boarding and Destination points can't be same",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(!(TextUtils.isEmpty(from_place) && TextUtils.isEmpty(to_place) && TextUtils.isEmpty(date))){
-                    Query query= databaseReference.orderByChild("train_path")
-                            .equalTo(path);
-                    query.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(!snapshot.hasChildren()){
-                                no_trains_found.setVisibility(View.VISIBLE);
-                                return;
-                            }else{
-                                no_trains_found.setVisibility(View.GONE);
+        searchBtn.setOnClickListener(view -> {
+            String from_place = spinner_from.getSelectedItem().toString();
+            String to_place = spinner_to.getSelectedItem().toString();
+            String path = from_place+"_"+to_place;
+            if(TextUtils.isEmpty(from_place) || TextUtils.isEmpty(to_place) || TextUtils.isEmpty(date)){
+                Toast.makeText(DashboardActivity.this,"All the fields are mandatory",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(from_place.equals("From")){
+                Toast.makeText(DashboardActivity.this,"Choose boarding point",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(to_place.equals("To")){
+                Toast.makeText(DashboardActivity.this,"Choose destination point",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(from_place.equals(to_place)){
+                Toast.makeText(DashboardActivity.this,"Boarding and Destination points can't be same",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!(TextUtils.isEmpty(from_place) && TextUtils.isEmpty(to_place) && TextUtils.isEmpty(date))){
+                Query query= databaseReference.orderByChild("train_path")
+                        .equalTo(path);
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(!snapshot.hasChildren()){
+                            no_trains_found.setVisibility(View.VISIBLE);
+                        }else{
+                            no_trains_found.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                display_trains.setVisibility(View.VISIBLE);
+                FirebaseRecyclerOptions<Train> options =
+                        new FirebaseRecyclerOptions.Builder<Train>()
+                                .setQuery(query,Train.class)
+                                .build();
+
+                System.out.println(options);
+
+                recyclerAdapter = new FirebaseRecyclerAdapter<Train,TrainViewHolder>(options){
+                    @NonNull
+                    @Override
+                    public TrainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        final View view = LayoutInflater.from(parent.getContext())
+                                .inflate(R.layout.train_view_layout,parent,false);
+
+                        view.findViewById(R.id.seats_view).setOnClickListener(mview -> {
+                            LinearLayout train_seats = view.findViewById(R.id.train_seats);
+                            TextView seats_view = view.findViewById(R.id.seats_view);
+                            if(train_seats.getVisibility()==View.VISIBLE){
+                                train_seats.setVisibility(View.GONE);
+                                seats_view.setText("View More");
                             }
-                        }
+                            else if(train_seats.getVisibility()==View.GONE){
+                                train_seats.setVisibility(View.VISIBLE);
+                                seats_view.setText("View Less");
+                            }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                    display_trains.setVisibility(View.VISIBLE);
-                    FirebaseRecyclerOptions<Train> options =
-                            new FirebaseRecyclerOptions.Builder<Train>()
-                                    .setQuery(query,Train.class)
-                                    .build();
-
-                    System.out.println(options);
-
-                    recyclerAdapter = new FirebaseRecyclerAdapter<Train,TrainViewHolder>(options){
-                        @NonNull
-                        @Override
-                        public TrainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                            final View view = LayoutInflater.from(parent.getContext())
-                                    .inflate(R.layout.train_view_layout,parent,false);
-
-                            view.findViewById(R.id.seats_view).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View mview) {
-                                    LinearLayout train_seats = view.findViewById(R.id.train_seats);
-                                    TextView seats_view = view.findViewById(R.id.seats_view);
-                                    if(train_seats.getVisibility()==View.VISIBLE){
-                                        train_seats.setVisibility(View.GONE);
-                                        seats_view.setText("View More");
+                                view.findViewById(R.id.seats_2s).setOnClickListener(sview -> {
+                                    if(Integer.parseInt(train_2s)>0) {
+                                    Intent intent = new Intent(DashboardActivity.this, PassengerDetailsActivity.class);
+                                    intent.putExtra("seat_availability", train_2s);
+                                    intent.putExtra("seat_type","2s");
+                                    intent.putExtra("train_name",train_name);
+                                    intent.putExtra("train_no",train_no);
+                                    intent.putExtra("train_arrival",train_arrival);
+                                    intent.putExtra("train_departure",train_departure);
+                                    startActivity(intent);
+                                }else{
+                                    Toast.makeText(DashboardActivity.this,"No seats available",Toast.LENGTH_SHORT).show();
                                     }
-                                    else if(train_seats.getVisibility()==View.GONE){
-                                        train_seats.setVisibility(View.VISIBLE);
-                                        seats_view.setText("View Less");
+                                });
+                            view.findViewById(R.id.seats_sl).setOnClickListener(sview -> {
+                                if(Integer.parseInt(train_sl)>0) {
+                                Intent intent = new Intent(DashboardActivity.this, PassengerDetailsActivity.class);
+                                    intent.putExtra("seat_availability", train_sl);
+                                    intent.putExtra("seat_type","sl");
+                                    intent.putExtra("train_name",train_name);
+                                    intent.putExtra("train_no",train_no);
+                                    intent.putExtra("train_arrival",train_arrival);
+                                    intent.putExtra("train_departure",train_departure);
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(DashboardActivity.this,"No seats available",Toast.LENGTH_SHORT).show();
+                                }
+                        });
+                            view.findViewById(R.id.seats_3a).setOnClickListener(sview -> {
+                                    if(Integer.parseInt(train_3a)>0) {
+                                Intent intent = new Intent(DashboardActivity.this, PassengerDetailsActivity.class);
+                                        intent.putExtra("seat_availability", train_3a);
+                                        intent.putExtra("seat_type","3a");
+                                        intent.putExtra("train_name",train_name);
+                                        intent.putExtra("train_no",train_no);
+                                        intent.putExtra("train_arrival",train_arrival);
+                                        intent.putExtra("train_departure",train_departure);
+                                startActivity(intent);
+                                }else{
+                                    Toast.makeText(DashboardActivity.this,"No seats available",Toast.LENGTH_SHORT).show();
                                     }
+                            });
+                            view.findViewById(R.id.seats_2a).setOnClickListener(sview -> {
+                                if(Integer.parseInt(train_2a)>0) {
+                                Intent intent = new Intent(DashboardActivity.this, PassengerDetailsActivity.class);
+                                    intent.putExtra("seat_availability", train_2a);
+                                    intent.putExtra("seat_type","2a");
+                                    intent.putExtra("train_name",train_name);
+                                    intent.putExtra("train_no",train_no);
+                                    intent.putExtra("train_arrival",train_arrival);
+                                    intent.putExtra("train_departure",train_departure);
+                                startActivity(intent);
+                                }else{
+                                    Toast.makeText(DashboardActivity.this,"No seats available",Toast.LENGTH_SHORT).show();
                                 }
                             });
-
-                            return new TrainViewHolder(view);
-                        }
-
-                        @Override
-                        protected void onBindViewHolder(@NonNull TrainViewHolder holder, int position, @NonNull Train model) {
-
-                            train = getRef(position).getKey();
-                            databaseReference.child(train).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists())
-                                    {
-                                        String train_name = snapshot.child("train_name").getValue().toString();
-                                        String train_no = snapshot.child("train_no").getValue().toString();
-                                        String train_departure = snapshot.child("train_departure").getValue().toString();
-                                        String train_arrival = snapshot.child("train_arrival").getValue().toString();
-                                        String train_2s = snapshot.child("train_2s").getValue().toString();
-                                        String train_sl = snapshot.child("train_sl").getValue().toString();
-                                        String train_3a = snapshot.child("train_3a").getValue().toString();
-                                        String train_2a = snapshot.child("train_2a").getValue().toString();
-                                        String train_1a = snapshot.child("train_1a").getValue().toString();
-
-                                        holder.setTrain_name(train_name);
-                                        holder.setTrain_no(train_no);
-                                        holder.setTrain_departure(train_departure);
-                                        holder.setTrain_arrival(train_arrival);
-                                        holder.setTrain_2s(train_2s);
-                                        holder.setTrain_sl(train_sl);
-                                        holder.setTrain_3a(train_3a);
-                                        holder.setTrain_2a(train_2a);
-                                        holder.setTrain_1a(train_1a);                        }
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
+                            view.findViewById(R.id.seats_1a).setOnClickListener(sview -> {
+                                if(Integer.parseInt(train_1a)>0) {
+                                Intent intent = new Intent(DashboardActivity.this, PassengerDetailsActivity.class);
+                                    intent.putExtra("seat_availability", train_1a);
+                                    intent.putExtra("seat_type","1a");
+                                    intent.putExtra("train_name",train_name);
+                                    intent.putExtra("train_no",train_no);
+                                    intent.putExtra("train_arrival",train_arrival);
+                                    intent.putExtra("train_departure",train_departure);
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(DashboardActivity.this,"No seats available",Toast.LENGTH_SHORT).show();
                                 }
                             });
-                        }
-                    };
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-                    linearLayoutManager.setReverseLayout(true);
-                    recyclerView.setLayoutManager(linearLayoutManager);
-                    recyclerView.setAdapter(recyclerAdapter);
-                    recyclerAdapter.startListening();
-                }
+                        });
+
+                        return new TrainViewHolder(view);
+                    }
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull TrainViewHolder holder, int position, @NonNull Train model) {
+
+                        train = getRef(position).getKey();
+                        databaseReference.child(train).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists())
+                                {
+                                    train_name = snapshot.child("train_name").getValue().toString();
+                                    train_no = snapshot.child("train_no").getValue().toString();
+                                    train_departure = snapshot.child("train_departure").getValue().toString();
+                                    train_arrival = snapshot.child("train_arrival").getValue().toString();
+                                    train_2s = snapshot.child("train_2s").getValue().toString();
+                                    train_sl = snapshot.child("train_sl").getValue().toString();
+                                    train_3a = snapshot.child("train_3a").getValue().toString();
+                                    train_2a = snapshot.child("train_2a").getValue().toString();
+                                    train_1a = snapshot.child("train_1a").getValue().toString();
+
+                                    holder.setTrain_name(train_name);
+                                    holder.setTrain_no(train_no);
+                                    holder.setTrain_departure(train_departure);
+                                    holder.setTrain_arrival(train_arrival);
+                                    holder.setTrain_2s(train_2s);
+                                    holder.setTrain_sl(train_sl);
+                                    holder.setTrain_3a(train_3a);
+                                    holder.setTrain_2a(train_2a);
+                                    holder.setTrain_1a(train_1a);                        }
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                };
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+                linearLayoutManager.setReverseLayout(true);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.setAdapter(recyclerAdapter);
+                recyclerAdapter.startListening();
             }
         });
 

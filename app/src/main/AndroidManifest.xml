@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".BookingPaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PassengerDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".prevJourneyActivity"
             android:exported="false" />
         <activity

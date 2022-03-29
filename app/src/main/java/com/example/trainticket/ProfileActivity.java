@@ -61,29 +61,25 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.showOverflowMenu();
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId())
-                {
-                    case R.id.menu_dashboard:
-                        Intent dIntent = new Intent(ProfileActivity.this, DashboardActivity.class);
-                        startActivity(dIntent);
-                        return true;
-                    case R.id.menu_transactions:
-                        Intent tIntent = new Intent(ProfileActivity.this, prevJourneyActivity.class);
-                        startActivity(tIntent);
-                        return true;
-                    case R.id.menu_wallet:
-                        Intent wIntent = new Intent(ProfileActivity.this, WalletActivity.class);
-                        startActivity(wIntent);
-                        return true;
-                    case R.id.menu_profile:
-                        return true;
-                }
-                return false;
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId())
+            {
+                case R.id.menu_dashboard:
+                    Intent dIntent = new Intent(ProfileActivity.this, DashboardActivity.class);
+                    startActivity(dIntent);
+                    return true;
+                case R.id.menu_transactions:
+                    Intent tIntent = new Intent(ProfileActivity.this, prevJourneyActivity.class);
+                    startActivity(tIntent);
+                    return true;
+                case R.id.menu_wallet:
+                    Intent wIntent = new Intent(ProfileActivity.this, WalletActivity.class);
+                    startActivity(wIntent);
+                    return true;
+                case R.id.menu_profile:
+                    return true;
             }
+            return false;
         });
     }
     @Override

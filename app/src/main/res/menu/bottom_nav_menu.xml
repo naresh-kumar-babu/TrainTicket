@@ -11,7 +11,7 @@
         android:id="@+id/menu_transactions"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_format_list_bulleted_24"
-        android:title="Upcoming Journey"
+        android:title="Booking History"
         />
     <item
         android:id="@+id/menu_wallet"

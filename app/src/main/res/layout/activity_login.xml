@@ -17,10 +17,10 @@
         android:id="@+id/tvDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30sp"
+        android:layout_marginStart="30sp"
         android:layout_marginTop="40sp"
         android:elevation="5sp"
-        android:text="Welcome to TTR"
+        android:text="@string/welcome_to_ttr"
         android:textColor="@color/colorWhite"
         android:textSize="25sp" />
 
@@ -30,9 +30,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDesc"
         android:transitionName="tvLogin"
-        android:layout_alignLeft="@+id/tvDesc"
+        android:layout_alignStart="@+id/tvDesc"
         android:elevation="5sp"
-        android:text="Login"
+        android:text="@string/login"
         android:textColor="@color/colorWhite"
         android:textSize="25sp"
         android:textStyle="bold" />
@@ -42,9 +42,9 @@
         android:layout_width="134sp"
         android:layout_height="134sp"
         android:layout_below="@+id/bgHeader"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="-80sp"
-        android:layout_marginRight="-100sp"
+        android:layout_marginEnd="-100sp"
         android:src="@drawable/circletransparant" />
 
     <ImageView
@@ -52,7 +52,7 @@
         android:layout_width="134sp"
         android:layout_height="134sp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="-100sp"
+        android:layout_marginStart="-100sp"
         android:layout_marginBottom="50sp"
         android:src="@drawable/circletransparant" />
 
@@ -60,9 +60,9 @@
         android:id="@+id/circle3"
         android:layout_width="182sp"
         android:layout_height="182sp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="-80sp"
+        android:layout_marginEnd="-80sp"
         android:layout_marginBottom="-30sp"
         android:src="@drawable/circle" />
 
@@ -71,9 +71,9 @@
         android:layout_width="134sp"
         android:layout_height="134sp"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="-50sp"
+        android:layout_marginEnd="-50sp"
         android:layout_marginBottom="-50sp"
-        android:layout_toLeftOf="@+id/circle3"
+        android:layout_toStartOf="@+id/circle3"
         android:src="@drawable/circletransparant" />
 
     <ScrollView
@@ -84,7 +84,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv"
@@ -106,7 +106,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10sp"
                         android:padding="5sp"
-                        android:text="Email"
+                        android:text="@string/email"
                         android:textColor="@color/colorPurple"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -118,15 +118,16 @@
                         android:layout_marginLeft="10sp"
                         android:layout_marginRight="10sp"
                         android:layout_marginTop="-15sp"
-                        android:inputType="text"
-                        android:textSize="18sp" />
+                        android:inputType="textEmailAddress"
+                        android:textSize="18sp"
+                        android:autofillHints="" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10sp"
                         android:padding="5sp"
-                        android:text="Password"
+                        android:text="@string/password"
                         android:textColor="@color/colorPurple"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -139,7 +140,8 @@
                         android:layout_marginRight="10sp"
                         android:layout_marginTop="-15sp"
                         android:inputType="textPassword"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:autofillHints="" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -147,20 +149,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cv"
-                android:layout_alignLeft="@+id/cv"
-                android:layout_alignRight="@+id/cv"
+                android:layout_alignStart="@+id/cv"
+                android:layout_alignEnd="@+id/cv"
                 android:layout_marginLeft="35sp"
                 android:layout_marginTop="-50sp"
                 android:layout_marginRight="35sp"
                 android:elevation="10sp">
 
-                <com.github.ybq.android.spinkit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.github.ybq.android.spinkit.SpinKitView
                     android:id="@+id/spin_kit"
                     style="@style/SpinKitView.Large.Wave"
                     android:layout_width="45sp"
                     android:layout_height="45sp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="10sp"
+                    android:layout_marginStart="10sp"
                     android:elevation="10sp"
                     android:padding="5sp"
                     android:visibility="gone"
@@ -178,17 +180,6 @@
                     android:textSize="18sp" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/cv"
-                android:layout_alignRight="@+id/cv"
-                android:layout_marginTop="-20sp"
-                android:layout_marginRight="-20sp"
-                android:elevation="10sp">
-
-            </RelativeLayout>
-
             <TextView
                 android:id="@+id/tvForgot"
                 android:layout_width="wrap_content"
@@ -197,7 +188,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10sp"
                 android:elevation="5sp"
-                android:text="Forgot your password?"
+                android:text="@string/forgot_your_password"
                 android:textSize="14sp" />
 
             <TextView
@@ -208,7 +199,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10sp"
                 android:elevation="5sp"
-                android:text="New User? Sign Up"
+                android:text="@string/new_user_sign_up"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 

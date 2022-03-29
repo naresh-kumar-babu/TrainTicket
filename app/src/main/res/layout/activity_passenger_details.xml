@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PassengerDetailsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/maintoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:background="@color/colorPrimary"
+        android:theme="@style/toolbar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/maintoolbar"
+        android:layout_centerHorizontal="true"
+        android:text="@string/passenger_details"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:id="@+id/passenger_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/maintoolbar"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="70sp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/p1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20sp"
+                android:layout_marginEnd="20sp"
+                android:layout_marginBottom="20sp"
+                app:cardCornerRadius="10sp"
+                app:cardElevation="4sp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10sp">
+
+                    <EditText
+                        android:id="@+id/p1_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:hint="@string/passenger_name"
+                        android:autofillHints=""
+                        android:inputType="text" />
+
+                    <RadioGroup
+                        android:id="@+id/p1_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/p1_name"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:checkedButton="@+id/p1_gender_m">
+
+                        <RadioButton
+                            android:id="@+id/p1_gender_m"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="20sp"
+                            android:text="@string/male" />
+
+                        <RadioButton
+                            android:id="@+id/p1_gender_f"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="20sp"
+                            android:text="@string/female" />
+
+                        <RadioButton
+                            android:id="@+id/p1_gender_o"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/other" />
+                    </RadioGroup>
+
+                    <EditText
+                        android:id="@+id/p1_age"
+                        android:layout_width="100sp"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/p1_gender"
+                        android:layout_marginTop="-2dp"
+                        android:gravity="center"
+                        android:hint="@string/age"
+                        android:inputType="number"
+                        android:autofillHints="" />
+
+                    <Spinner
+                        android:id="@+id/p1_berth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/p1_gender"
+                        android:layout_marginStart="50sp"
+                        android:layout_toEndOf="@+id/p1_age" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/p2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/p1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20sp"
+                android:layout_marginEnd="20sp"
+                android:layout_marginBottom="10sp"
+                android:visibility="gone"
+                app:cardCornerRadius="10sp"
+                app:cardElevation="4sp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10sp">
+
+                    <EditText
+                        android:id="@+id/p2_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:hint="@string/passenger_name"
+                        android:autofillHints=""
+                        android:inputType="text"
+                        tools:ignore="TextFields" />
+
+                    <RadioGroup
+                        android:id="@+id/p2_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/p2_name"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:checkedButton="@+id/p2_gender_m">
+
+                        <RadioButton
+                            android:id="@+id/p2_gender_m"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="20sp"
+                            android:text="@string/male" />
+
+                        <RadioButton
+                            android:id="@+id/p2_gender_f"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="20sp"
+                            android:text="@string/female" />
+
+                        <RadioButton
+                            android:id="@+id/p2_gender_o"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/other" />
+                    </RadioGroup>
+
+                    <EditText
+                        android:id="@+id/p2_age"
+                        android:layout_width="100sp"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/p2_gender"
+                        android:layout_marginTop="-2dp"
+                        android:gravity="center"
+                        android:hint="@string/age"
+                        android:inputType="number"
+                        android:autofillHints="" />
+
+                    <Spinner
+                        android:id="@+id/p2_berth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/p2_gender"
+                        android:layout_marginStart="50sp"
+                        android:layout_toEndOf="@+id/p2_age" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/p3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/p2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20sp"
+                android:layout_marginEnd="20sp"
+                android:layout_marginBottom="10sp"
+                android:visibility="gone"
+                app:cardCornerRadius="10sp"
+                app:cardElevation="4sp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10sp">
+
+                    <EditText
+                        android:id="@+id/p3_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:hint="@string/passenger_name"
+                        android:autofillHints=""
+                        android:inputType="text" />
+
+                    <RadioGroup
+                        android:id="@+id/p3_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/p3_name"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:checkedButton="@+id/p3_gender_m">
+
+                        <RadioButton
+                            android:id="@+id/p3_gender_m"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="20sp"
+                            android:text="@string/male" />
+
+                        <RadioButton
+                            android:id="@+id/p3_gender_f"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="20sp"
+                            android:text="@string/female" />
+
+                        <RadioButton
+                            android:id="@+id/p3_gender_o"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/other" />
+                    </RadioGroup>
+
+                    <EditText
+                        android:id="@+id/p3_age"
+                        android:layout_width="100sp"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/p3_gender"
+                        android:layout_marginTop="-2dp"
+                        android:gravity="center"
+                        android:hint="@string/age"
+                        android:inputType="number"
+                        android:autofillHints="" />
+
+                    <Spinner
+                        android:id="@+id/p3_berth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/p3_gender"
+                        android:layout_marginStart="50sp"
+                        android:layout_toEndOf="@+id/p3_age" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/p4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/p3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20sp"
+                android:layout_marginEnd="20sp"
+                android:layout_marginBottom="10sp"
+                android:visibility="gone"
+                app:cardCornerRadius="10sp"
+                app:cardElevation="4sp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10sp">
+
+                    <EditText
+                        android:id="@+id/p4_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:hint="@string/passenger_name"
+                        android:inputType="text"
+                        android:autofillHints="" />
+
+                    <RadioGroup
+                        android:id="@+id/p4_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/p4_name"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:checkedButton="@id/p4_gender_m">
+
+                        <RadioButton
+                            android:id="@+id/p4_gender_m"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="20sp"
+                            android:text="@string/male" />
+
+                        <RadioButton
+                            android:id="@+id/p4_gender_f"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="20sp"
+                            android:text="@string/female" />
+
+                        <RadioButton
+                            android:id="@+id/p4_gender_o"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/other" />
+                    </RadioGroup>
+
+                    <EditText
+                        android:id="@+id/p4_age"
+                        android:layout_width="100sp"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/p4_gender"
+                        android:layout_marginTop="-2dp"
+                        android:gravity="center"
+                        android:hint="@string/age"
+                        android:inputType="number"
+                        android:autofillHints="" />
+
+                    <Spinner
+                        android:id="@+id/p4_berth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/p4_gender"
+                        android:layout_marginStart="50sp"
+                        android:layout_toEndOf="@+id/p4_age" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/p4"
+                android:id="@+id/btn"
+                android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_passenger"
+                android:id="@+id/addBtn"
+                android:textAlignment="textStart"
+                android:layout_marginStart="10sp"
+                android:textColor="@color/green"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_passenger"
+                android:visibility="gone"
+                android:id="@+id/deleteBtn"
+                android:textAlignment="textStart"
+                android:textColor="@color/green"/>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/proceed_to_payment"
+        android:layout_marginTop="-60sp"
+        android:id="@+id/proceed_to_payment"
+        android:layout_below="@+id/passenger_details"
+        android:background="@drawable/bg_ui"
+        android:textColor="@color/colorWhite"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:layout_marginBottom="20sp"
+        />
+
+
+
+</RelativeLayout>
