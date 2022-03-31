@@ -20,7 +20,7 @@ public class AdmindbActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_admindb);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.maintoolbar);
+        Toolbar toolbar = findViewById(R.id.maintoolbar);
         setSupportActionBar(toolbar);
         toolbar.showOverflowMenu();
     }

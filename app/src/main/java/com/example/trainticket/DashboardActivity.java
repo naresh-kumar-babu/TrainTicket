@@ -70,7 +70,7 @@ public class DashboardActivity extends AppCompatActivity {
         display_trains = findViewById(R.id.display_trains);
         no_trains_found = findViewById(R.id.no_trains_found);
         recyclerView = findViewById(R.id.trains_recyclerview);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.maintoolbar);
+        Toolbar toolbar = findViewById(R.id.maintoolbar);
         setSupportActionBar(toolbar);
         toolbar.showOverflowMenu();
 
@@ -82,9 +82,9 @@ public class DashboardActivity extends AppCompatActivity {
         spinner_to.setAdapter(adapter_to);
 
         Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR,1);
         year = cal.get(Calendar.YEAR);
         month = cal.get(Calendar.MONTH)+1;
-        cal.add(Calendar.DATE,1);
         day = cal.get(Calendar.DAY_OF_MONTH);
         date = day + "/" + month + "/" + year;
         journey_date.setText(date);
@@ -97,8 +97,8 @@ public class DashboardActivity extends AppCompatActivity {
                     year,month,day
             );
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-            dialog.getDatePicker().setMinDate(System.currentTimeMillis());
-            cal.add(Calendar.DATE,120);
+            dialog.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
+            cal.add(Calendar.DAY_OF_YEAR,120);
             dialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
             dialog.show();
         });
@@ -184,6 +184,9 @@ public class DashboardActivity extends AppCompatActivity {
                                     intent.putExtra("train_no",train_no);
                                     intent.putExtra("train_arrival",train_arrival);
                                     intent.putExtra("train_departure",train_departure);
+                                    intent.putExtra("from_place",from_place);
+                                    intent.putExtra("to_place",to_place);
+                                    intent.putExtra("journey_date",date);
                                     startActivity(intent);
                                 }else{
                                     Toast.makeText(DashboardActivity.this,"No seats available",Toast.LENGTH_SHORT).show();
@@ -198,6 +201,9 @@ public class DashboardActivity extends AppCompatActivity {
                                     intent.putExtra("train_no",train_no);
                                     intent.putExtra("train_arrival",train_arrival);
                                     intent.putExtra("train_departure",train_departure);
+                                    intent.putExtra("from_place",from_place);
+                                    intent.putExtra("to_place",to_place);
+                                    intent.putExtra("journey_date",date);
                                 startActivity(intent);
                             }else{
                                 Toast.makeText(DashboardActivity.this,"No seats available",Toast.LENGTH_SHORT).show();
@@ -212,6 +218,9 @@ public class DashboardActivity extends AppCompatActivity {
                                         intent.putExtra("train_no",train_no);
                                         intent.putExtra("train_arrival",train_arrival);
                                         intent.putExtra("train_departure",train_departure);
+                                        intent.putExtra("from_place",from_place);
+                                        intent.putExtra("to_place",to_place);
+                                        intent.putExtra("journey_date",date);
                                 startActivity(intent);
                                 }else{
                                     Toast.makeText(DashboardActivity.this,"No seats available",Toast.LENGTH_SHORT).show();
@@ -226,6 +235,9 @@ public class DashboardActivity extends AppCompatActivity {
                                     intent.putExtra("train_no",train_no);
                                     intent.putExtra("train_arrival",train_arrival);
                                     intent.putExtra("train_departure",train_departure);
+                                    intent.putExtra("from_place",from_place);
+                                    intent.putExtra("to_place",to_place);
+                                    intent.putExtra("journey_date",date);
                                 startActivity(intent);
                                 }else{
                                     Toast.makeText(DashboardActivity.this,"No seats available",Toast.LENGTH_SHORT).show();
@@ -240,6 +252,9 @@ public class DashboardActivity extends AppCompatActivity {
                                     intent.putExtra("train_no",train_no);
                                     intent.putExtra("train_arrival",train_arrival);
                                     intent.putExtra("train_departure",train_departure);
+                                    intent.putExtra("from_place",from_place);
+                                    intent.putExtra("to_place",to_place);
+                                    intent.putExtra("journey_date",date);
                                 startActivity(intent);
                             }else{
                                 Toast.makeText(DashboardActivity.this,"No seats available",Toast.LENGTH_SHORT).show();
@@ -413,7 +428,7 @@ public class DashboardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.changePassword:
-                Intent wIntent = new Intent(DashboardActivity.this, WalletActivity.class);
+                Intent wIntent = new Intent(DashboardActivity.this, ChangePassswordActivity.class);
                 startActivity(wIntent);
                 return true;
             case R.id.logout:

@@ -1,15 +1,15 @@
 package com.example.trainticket;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextView prof_name,prof_dob,prof_email,prof_gender,prof_phone;
     private DatabaseReference usersRef;
+    private ImageButton editProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
         prof_email = findViewById(R.id.prof_email);
         prof_gender = findViewById(R.id.prof_gender);
         prof_phone = findViewById(R.id.prof_phone);
+        editProfile = findViewById(R.id.editBtn);
 
         if(mAuth.getCurrentUser()!=null){
             prof_email.setText(mAuth.getCurrentUser().getEmail().toString());
@@ -60,6 +62,12 @@ public class ProfileActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.maintoolbar);
         setSupportActionBar(toolbar);
         toolbar.showOverflowMenu();
+
+        editProfile.setOnClickListener(view -> {
+            Intent intent = new Intent(ProfileActivity.this,EditProfileActivity.class);
+            startActivity(intent);
+        });
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId())
@@ -92,7 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.changePassword:
-                Intent wIntent = new Intent(ProfileActivity.this, WalletActivity.class);
+                Intent wIntent = new Intent(ProfileActivity.this, ChangePassswordActivity.class);
                 startActivity(wIntent);
                 return true;
             case R.id.logout:

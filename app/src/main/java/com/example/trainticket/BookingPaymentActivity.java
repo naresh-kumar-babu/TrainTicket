@@ -1,30 +1,34 @@
 package com.example.trainticket;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class BookingPaymentActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private TextView upi_card,netbanking_card,creditcard_card,debitcard_card,wallet_card;
-    private String uid;
+    private String uid,purpose;
     private int passenger_cnt;
     private DatabaseReference usersRef;
+    private CardView walletCard;
     private ArrayList<HashMap<String, Object>> passengerList = new ArrayList<>();
 
     @Override
@@ -37,21 +41,52 @@ public class BookingPaymentActivity extends AppCompatActivity {
         creditcard_card = findViewById(R.id.creditcard_card);
         debitcard_card  = findViewById(R.id.debitcard_card);
         wallet_card = findViewById(R.id.wallet_card);
-        passenger_cnt = getIntent().getIntExtra("passenger_cnt",1);
+        walletCard = findViewById(R.id.walletCard);
+        purpose = getIntent().getStringExtra("purpose");
         Toolbar toolbar = (Toolbar) findViewById(R.id.maintoolbar);
         setSupportActionBar(toolbar);
         toolbar.showOverflowMenu();
 
+        if(purpose.equals("Booking")){
+            walletCard.setVisibility(View.VISIBLE);
+            passenger_cnt = getIntent().getIntExtra("passenger_cnt",1);
+            upi_card.setOnClickListener(view -> booking());
+            netbanking_card.setOnClickListener(view -> booking());
+            creditcard_card.setOnClickListener(view -> booking());
+            debitcard_card.setOnClickListener(view -> booking());
+            wallet_card.setOnClickListener(view -> booking());
+        }
+        if(purpose.equals("wallet")){
+            walletCard.setVisibility(View.GONE);
+            String money = getIntent().getStringExtra("money");
+            upi_card.setOnClickListener(view -> walletBalance(money));
+            netbanking_card.setOnClickListener(view -> walletBalance(money));
+            creditcard_card.setOnClickListener(view -> walletBalance(money));
+            debitcard_card.setOnClickListener(view -> walletBalance(money));
+        }
 
-        upi_card.setOnClickListener(view -> next_page());
-        netbanking_card.setOnClickListener(view -> next_page());
-        creditcard_card.setOnClickListener(view -> next_page());
-        debitcard_card.setOnClickListener(view -> next_page());
-        wallet_card.setOnClickListener(view -> next_page());
 
     }
 
-    public void next_page(){
+    public void walletBalance(String money){
+        System.out.println(money);
+        usersRef = FirebaseDatabase.getInstance().getReference("Users");
+        uid = mAuth.getCurrentUser().getUid();
+        HashMap<String, Object> wallet = new HashMap<>();
+        wallet.put("wallet_balance", money);
+        usersRef.child(uid).updateChildren(wallet).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(BookingPaymentActivity.this,"Wallet Balance added",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(BookingPaymentActivity.this,WalletActivity.class);
+                startActivity(intent);
+            } else {
+                String message = task.getException().getMessage();
+                Toast.makeText(BookingPaymentActivity.this, "Error occurred. " + message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void booking(){
         usersRef = FirebaseDatabase.getInstance().getReference("Users");
         uid = mAuth.getCurrentUser().getUid();
         String uniqueId = usersRef.push().getKey();
@@ -62,6 +97,10 @@ public class BookingPaymentActivity extends AppCompatActivity {
         train_details.put("train_name", getIntent().getStringExtra("train_name"));
         train_details.put("train_departure", getIntent().getStringExtra("train_departure"));
         train_details.put("train_no", getIntent().getStringExtra("train_no"));
+        train_details.put("starting_pt",getIntent().getStringExtra("from_place"));
+        train_details.put("destination_pt",getIntent().getStringExtra("to_place"));
+        train_details.put("journey_date",getIntent().getStringExtra("journey_date"));
+        train_details.put("booking_date",new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()));
         train_details.put("passenger_cnt",passenger_cnt);
         if(passenger_cnt>3){
             HashMap<String, Object> passenger4 = new HashMap<>();
@@ -94,6 +133,7 @@ public class BookingPaymentActivity extends AppCompatActivity {
         }
         usersRef.child(uid).child("Booking").child(uniqueId).updateChildren(train_details).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
+                Intent intent = new Intent(BookingPaymentActivity.this, prevJourneyActivity.class);
                 for(int i=1;i<=passenger_cnt;i++){
                     usersRef.child(uid).child("Booking").child(uniqueId).child("Passengers").child("Passenger-"+i).updateChildren(passengerList.get(passenger_cnt-i)).addOnCompleteListener(task1 -> {
                         if(task.isSuccessful()){
@@ -104,7 +144,7 @@ public class BookingPaymentActivity extends AppCompatActivity {
                         }
                     });
                 }
-                Intent intent = new Intent(BookingPaymentActivity.this, prevJourneyActivity.class);
+                Toast.makeText(BookingPaymentActivity.this,"Booking Successful",Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }else{
                 String message = task.getException().getMessage();

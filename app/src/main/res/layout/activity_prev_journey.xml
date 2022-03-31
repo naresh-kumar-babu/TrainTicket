@@ -15,17 +15,27 @@
         android:theme="@style/toolbar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="150sp"
-        android:layout_marginTop="150sp"
-        android:text="@string/booking_history"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/maintoolbar"
+        android:layout_margin="15sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginTop="10sp"
+        android:layout_marginEnd="10sp"
+        android:layout_marginBottom="10sp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bookinghistory_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_dash"
         android:layout_width="match_parent"
-        android:layout_height="45sp"
+        android:layout_height="55sp"
         android:paddingTop="6sp"
         app:itemIconSize="26sp"
         android:paddingBottom="4sp"

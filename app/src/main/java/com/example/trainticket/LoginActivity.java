@@ -85,44 +85,41 @@ public class LoginActivity extends AppCompatActivity {
             if(!(TextUtils.isEmpty(email) && TextUtils.isEmpty(password)))
             {
                 mAuth.signInWithEmailAndPassword(email,password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful())
-                                {
-                                    usersRef = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid());
-                                    usersRef.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            LoginButton.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.green));
-                                            progressBar.setVisibility(View.VISIBLE);
-                                            System.out.println(snapshot.child("role").getValue().toString());
-                                            if (snapshot.child("role").getValue().toString().equals("user")) {
-                                                Intent mainIntent = new Intent(LoginActivity.this, DashboardActivity.class);
-                                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                startActivity(mainIntent);
-                                                finish();
-                                            } else {
-                                                Intent mainIntent = new Intent(LoginActivity.this, AdmindbActivity.class);
-                                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                startActivity(mainIntent);
-                                                finish();
-                                            }
-
+                        .addOnCompleteListener(task -> {
+                            if(task.isSuccessful())
+                            {
+                                usersRef = FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid());
+                                usersRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        LoginButton.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.green));
+                                        progressBar.setVisibility(View.VISIBLE);
+                                        System.out.println(snapshot.child("role").getValue().toString());
+                                        if (snapshot.child("role").getValue().toString().equals("user")) {
+                                            Intent mainIntent = new Intent(LoginActivity.this, DashboardActivity.class);
+                                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(mainIntent);
+                                            finish();
+                                        } else {
+                                            Intent mainIntent = new Intent(LoginActivity.this, AdmindbActivity.class);
+                                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(mainIntent);
+                                            finish();
                                         }
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
 
-                                        }
-                                    });
-                                }
-                                else
-                                {
-                                    String message = task.getException().getMessage();
-                                    Toast.makeText(LoginActivity.this, "Error occured. "+message, Toast.LENGTH_SHORT).show();
-                                }
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
+                                    }
+                                });
                             }
+                            else
+                            {
+                                String message = task.getException().getMessage();
+                                Toast.makeText(LoginActivity.this, "Error occured. "+message, Toast.LENGTH_SHORT).show();
+                            }
+
                         });
             }
         });
@@ -153,6 +150,11 @@ public class LoginActivity extends AppCompatActivity {
             Intent signupIntent =  new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(signupIntent);
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        return;
     }
 
 }

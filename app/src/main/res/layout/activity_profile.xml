@@ -52,7 +52,7 @@
             app:cardCornerRadius="10sp"
             android:layout_margin="10sp"
             app:cardElevation="4sp"
-            app:cardBackgroundColor="#FEDCF8">
+            app:cardBackgroundColor="#EDDDED">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -118,20 +118,19 @@
 
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_dash"
         android:layout_width="match_parent"
-        android:layout_height="45sp"
+        android:layout_height="55sp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
         android:paddingTop="6sp"
-        app:itemIconSize="26sp"
         android:paddingBottom="4sp"
+        app:itemIconSize="26sp"
         app:itemIconTint="@drawable/navigation_view_colored"
         app:itemTextColor="@drawable/navigation_view_colored"
         app:labelVisibilityMode="labeled"
-        android:background="@color/colorPrimary"
-        app:menu="@menu/bottom_nav_menu"
-        android:layout_alignParentBottom="true"
-        >
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/bottom_nav_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>

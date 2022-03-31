@@ -81,6 +81,8 @@ public class SignupActivity extends AppCompatActivity {
                     year,month,day
             );
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            cal.add(Calendar.YEAR,-5);
+            dialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
             dialog.show();
         });
         mDateSetListener = (datePicker, i, i1, i2) -> {
@@ -148,14 +150,19 @@ public class SignupActivity extends AppCompatActivity {
                 Toast.makeText(SignupActivity.this,"All the fields are mandatory",Toast.LENGTH_SHORT).show();
                 return;
             }
-            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+            if(!isValidName(name))
             {
-                Toast.makeText(SignupActivity.this,"Invalid Email Address",Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignupActivity.this,"Invalid Name",Toast.LENGTH_SHORT).show();
                 return;
             }
             if(!isValidMobile(phoneno))
             {
                 Toast.makeText(SignupActivity.this,"Invalid Phone Number",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+            {
+                Toast.makeText(SignupActivity.this,"Invalid Email Address",Toast.LENGTH_SHORT).show();
                 return;
             }
             if(!(TextUtils.isEmpty(name) && TextUtils.isEmpty(date) && TextUtils.isEmpty(gender) &&  TextUtils.isEmpty(phoneno) && TextUtils.isEmpty(email) && TextUtils.isEmpty(password) && TextUtils.isEmpty(re_password)))
@@ -174,6 +181,7 @@ public class SignupActivity extends AppCompatActivity {
                                         result.put("Gender",gender);
                                         result.put("Phone",phoneno);
                                         result.put("role", "user");
+                                        result.put("wallet_balance","0");
                                         usersRef.child(uid).updateChildren(result).addOnCompleteListener(task1 -> {
                                             if (task1.isSuccessful()) {
                                                 SignupButton.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.green));
@@ -188,21 +196,6 @@ public class SignupActivity extends AppCompatActivity {
                                             }
                                         });
 
-
-                                    /* FirebaseUser user = mAuth.getCurrentUser();
-                                       user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {*/
-                                       /*         Toast.makeText(SignupActivity.this, "Verification Link Has Been Sent", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @SuppressLint("SetTextI18n")
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(SignupActivity.this, "Could not send Verification link. " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                            }
-                                        });*/
-
                                     } else {
                                         String message = task.getException().getMessage();
                                         Toast.makeText(SignupActivity.this, "Error occurred. " + message, Toast.LENGTH_SHORT).show();
@@ -210,7 +203,7 @@ public class SignupActivity extends AppCompatActivity {
 
                                 });
                     }else{
-                        Snackbar.make(coordinatorLayout,"Password should contain atleast one Numeric, Special, Uppercase and Lowercase character.",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(coordinatorLayout,"Password should contain at least one Numeric, Special, Uppercase and Lowercase character.",Snackbar.LENGTH_SHORT).show();
                     }
                 }
                 else
@@ -220,6 +213,15 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public boolean isValidName(final String name){
+        Pattern pattern;
+        Matcher matcher;
+        final String NAME_PATTERN = "^[\\p{L} '-]+$";
+        pattern = Pattern.compile(NAME_PATTERN);
+        matcher = pattern.matcher(name);
+        return matcher.matches();
     }
 
     public static boolean isValidPassword(final String password) {

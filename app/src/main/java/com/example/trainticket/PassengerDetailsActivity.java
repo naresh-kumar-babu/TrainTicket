@@ -20,6 +20,9 @@ import androidx.cardview.widget.CardView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class PassengerDetailsActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -28,7 +31,7 @@ public class PassengerDetailsActivity extends AppCompatActivity {
     private int passenger_count=1;
     private CardView p1,p2,p3,p4;
     private CardView[] cardsArray;
-    private String seat_type, seat_availability, train_name, train_no, train_arrival, train_departure;
+    private String seat_type, seat_availability, train_name, train_no, train_arrival, train_departure, from_place,to_place,journey_date;
     private boolean[] flag = {true,false,false,false};
     private int cnt=0;
 
@@ -51,11 +54,14 @@ public class PassengerDetailsActivity extends AppCompatActivity {
         train_name = getIntent().getStringExtra("train_name").toString();
         train_departure = getIntent().getStringExtra("train_departure").toString();
         train_no = getIntent().getStringExtra("train_no").toString();
+        from_place = getIntent().getStringExtra("from_place").toString();
+        to_place = getIntent().getStringExtra("to_place").toString();
+        journey_date = getIntent().getStringExtra("journey_date").toString();
         cardsArray  = new CardView[]{p1, p2, p3, p4};
         addBtn = findViewById(R.id.addBtn);
         deleteBtn = findViewById(R.id.deleteBtn);
         payment = findViewById(R.id.proceed_to_payment);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.maintoolbar);
+        Toolbar toolbar = findViewById(R.id.maintoolbar);
         setSupportActionBar(toolbar);
         toolbar.showOverflowMenu();
 
@@ -111,6 +117,13 @@ public class PassengerDetailsActivity extends AppCompatActivity {
                         if(TextUtils.isEmpty(_p1_name) || TextUtils.isEmpty(_p1_berth) || TextUtils.isEmpty(_p1_gender) || TextUtils.isEmpty(_p1_age)){
                             Toast.makeText(PassengerDetailsActivity.this,"Please fill all the details", Toast.LENGTH_SHORT).show();
                             return;
+                        }else if(!isValidName(_p1_name))
+                        {
+                            Toast.makeText(PassengerDetailsActivity.this,"Invalid Name",Toast.LENGTH_SHORT).show();
+                            return;
+                        }else if(Integer.parseInt(_p1_age) <5){
+                            Toast.makeText(PassengerDetailsActivity.this,"Children under 5 years of age will be carried free of charge. No reservations is needed for them.", Toast.LENGTH_SHORT).show();
+                            return;
                         }
                         else{
                             cnt++;
@@ -132,6 +145,13 @@ public class PassengerDetailsActivity extends AppCompatActivity {
                         String _p2_berth = p2_berth.getSelectedItem().toString();
                         if(TextUtils.isEmpty(_p2_name) || TextUtils.isEmpty(_p2_berth) || TextUtils.isEmpty(_p2_gender) || TextUtils.isEmpty(_p2_age)){
                             Toast.makeText(PassengerDetailsActivity.this,"Please fill all the details", Toast.LENGTH_SHORT).show();
+                            return;
+                        }else if(!isValidName(_p2_name))
+                        {
+                            Toast.makeText(PassengerDetailsActivity.this,"Invalid Name",Toast.LENGTH_SHORT).show();
+                            return;
+                        }else if(Integer.parseInt(_p2_age) <5){
+                            Toast.makeText(PassengerDetailsActivity.this,"Children under 5 years of age will be carried free of charge. No reservations is needed for them.", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         else{
@@ -155,6 +175,13 @@ public class PassengerDetailsActivity extends AppCompatActivity {
                         if(TextUtils.isEmpty(_p3_name) || TextUtils.isEmpty(_p3_berth) || TextUtils.isEmpty(_p3_gender) || TextUtils.isEmpty(_p3_age)){
                             Toast.makeText(PassengerDetailsActivity.this,"Please fill all the details", Toast.LENGTH_SHORT).show();
                             return;
+                        }else if(!isValidName(_p3_name))
+                        {
+                            Toast.makeText(PassengerDetailsActivity.this,"Invalid Name",Toast.LENGTH_SHORT).show();
+                            return;
+                        }else if(Integer.parseInt(_p3_age) <5){
+                            Toast.makeText(PassengerDetailsActivity.this,"Children under 5 years of age will be carried free of charge. No reservations is needed for them.", Toast.LENGTH_SHORT).show();
+                            return;
                         }
                         else{
                             cnt++;
@@ -177,6 +204,13 @@ public class PassengerDetailsActivity extends AppCompatActivity {
                         if(TextUtils.isEmpty(_p4_name) || TextUtils.isEmpty(_p4_berth) || TextUtils.isEmpty(_p4_gender) || TextUtils.isEmpty(_p4_age)){
                             Toast.makeText(PassengerDetailsActivity.this,"Please fill all the details", Toast.LENGTH_SHORT).show();
                             return;
+                        }else if(!isValidName(_p4_name))
+                        {
+                            Toast.makeText(PassengerDetailsActivity.this,"Invalid Name",Toast.LENGTH_SHORT).show();
+                            return;
+                        }else if(Integer.parseInt(_p4_age) <5){
+                            Toast.makeText(PassengerDetailsActivity.this,"Children under 5 years of age will be carried free of charge. No reservations is needed for them.", Toast.LENGTH_SHORT).show();
+                            return;
                         }
                         else{
                             cnt++;
@@ -195,9 +229,22 @@ public class PassengerDetailsActivity extends AppCompatActivity {
             intent.putExtra("train_name",train_name);
             intent.putExtra("train_departure",train_departure);
             intent.putExtra("train_no",train_no);
+            intent.putExtra("from_place",from_place);
+            intent.putExtra("to_place",to_place);
+            intent.putExtra("journey_date",journey_date);
+            intent.putExtra("purpose","Booking");
             startActivity(intent);
         });
 
+    }
+
+    public boolean isValidName(final String name){
+        Pattern pattern;
+        Matcher matcher;
+        final String NAME_PATTERN = "^[\\p{L} '-]+$";
+        pattern = Pattern.compile(NAME_PATTERN);
+        matcher = pattern.matcher(name);
+        return matcher.matches();
     }
 
     @Override

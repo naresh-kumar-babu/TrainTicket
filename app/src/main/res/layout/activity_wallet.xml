@@ -15,17 +15,84 @@
         android:theme="@style/toolbar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <TextView
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/maintoolbar"
+        android:layout_margin="20sp"
+        app:cardCornerRadius="10sp"
+        app:cardElevation="4sp"
+        android:background="#e6d9c8"
+        android:id="@+id/card_balance">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10sp"
+            android:padding="10sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/balance"
+                android:textStyle="bold"
+                android:textSize="40sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/wallet_balance"
+                android:textStyle="bold"
+                android:textSize="40sp"
+                android:textColor="#b31446"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="150sp"
-        android:layout_marginTop="150sp"
-        android:text="@string/wallet" />
+        android:layout_below="@+id/card_balance"
+        android:layout_above="@+id/bottom_nav_dash"
+        android:layout_marginStart="10sp"
+        android:layout_marginTop="10sp"
+        android:layout_marginEnd="10sp"
+        android:layout_marginBottom="10sp"
+        android:orientation="vertical"
+        android:padding="20sp">
+
+        <EditText
+            android:layout_gravity="center"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter the amount"
+            android:visibility="gone"
+            android:padding="10sp"
+            android:maxLength="6"
+            android:inputType="number"
+            android:id="@+id/wallet_money"
+            android:background="@drawable/outer_border_lt"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:text="Add Money"
+            android:layout_marginStart="60sp"
+            android:layout_marginEnd="60sp"
+            android:id="@+id/addmoneyBtn"
+            android:background="@drawable/bg_ui"/>
+
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_dash"
         android:layout_width="match_parent"
-        android:layout_height="45sp"
+        android:layout_height="55sp"
         android:paddingTop="6sp"
         app:itemIconSize="26sp"
         android:paddingBottom="4sp"

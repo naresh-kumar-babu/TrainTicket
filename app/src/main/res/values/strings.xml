@@ -32,4 +32,16 @@
     <string name="wallet">Wallet</string>
     <string name="departure">Departure</string>
     <string name="arrival">Arrival</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="upi">UPI</string>
+    <string name="netbanking">NetBanking</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="debit_card">Debit Card</string>
+    <string name="change_password">Change Password</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="retype_new_password">Retype New Password</string>
+    <string name="update">Update</string>
+    <string name="cancel">Cancel</string>
+    <string name="balance">Balance :</string>
 </resources>
