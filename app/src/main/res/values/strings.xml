@@ -2,7 +2,7 @@
     <string name="app_name">TrainTicket</string>
     <string name="journey_date">Journey Date</string>
     <string name="search_trains">Search trains</string>
-    <string name="no_available_trains">No available trains</string>
+    <string name="no_available_trains">No Direct Trains found between the given Stations</string>
     <string name="welcome_to_ttr">Welcome to TTR</string>
     <string name="login">Login</string>
     <string name="email">Email</string>

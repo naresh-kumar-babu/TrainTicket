@@ -96,10 +96,11 @@ public class DashboardActivity extends AppCompatActivity {
                     mDateSetListener,
                     year,month,day
             );
+            Calendar cal1 = Calendar.getInstance();
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
             dialog.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
-            cal.add(Calendar.DAY_OF_YEAR,120);
-            dialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
+            cal1.add(Calendar.DAY_OF_YEAR,120);
+            dialog.getDatePicker().setMaxDate(cal1.getTimeInMillis());
             dialog.show();
         });
         mDateSetListener = (datePicker, i, i1, i2) -> {

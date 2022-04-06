@@ -92,6 +92,7 @@ public class PassengerDetailsActivity extends AppCompatActivity {
         });
         deleteBtn.setOnClickListener(view -> {
             if(passenger_count>1){
+                addBtn.setVisibility(View.VISIBLE);
                 cardsArray[passenger_count-1].setVisibility(View.GONE);
                 flag[passenger_count-1] = false;
                 passenger_count--;

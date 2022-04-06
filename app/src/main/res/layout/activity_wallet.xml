@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/balance"
                 android:textStyle="bold"
-                android:textSize="40sp"
+                android:textSize="35sp"
                 android:textColor="@color/black"/>
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/wallet_balance"
                 android:textStyle="bold"
-                android:textSize="40sp"
+                android:textSize="35sp"
                 android:textColor="#b31446"/>
 
         </LinearLayout>
